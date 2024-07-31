@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Lato:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Lato:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(#29251c, #2c2306);
@@ -14,20 +14,20 @@ body {
   min-height: 100vh;
 }
 
-#main-header {
+.main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 10%;
+  padding: 1rem 10% 1rem;
 }
 
-#main-header #title {
+.main-header .title {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-#main-header #title img {
+.main-header .title img {
   width: 4rem;
   height: 4rem;
   object-fit: contain;
@@ -35,29 +35,28 @@ body {
   border: 2px solid #ffc404;
 }
 
-#main-header button {
+.main-header button {
   font-size: 1.5rem;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 h1 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 2rem;
   margin: 0;
   color: #ffc404;
   letter-spacing: 0.2rem;
-  text-transform: uppercase;
 }
 
 #meals {
   width: 90%;
   max-width: 70rem;
   list-style: none;
-  margin: 2rem auto;
+  margin-inline: auto;
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
 }
 
@@ -78,18 +77,18 @@ h1 {
 
 .meal-item img {
   width: 100%;
-  height: 20rem;
   object-fit: cover;
 }
 
 .meal-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-weight: bold;
   margin: 0.75rem 0;
 }
 
 .meal-item-description {
   margin: 1rem;
+  font-size: .75rem;
 }
 
 .meal-item-price {
@@ -187,6 +186,7 @@ h1 {
 .control label {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
 .control input {
@@ -234,7 +234,7 @@ h1 {
   color: #ffab04;
 }
 
-.modal {
+dialog {
   background-color: #e4ddd4;
   border-radius: 6px;
   border: none;
@@ -245,7 +245,7 @@ h1 {
   animation: fade-slide-up 0.3s ease-out forwards;
 }
 
-.modal::backdrop {
+dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.55);
 }
 
