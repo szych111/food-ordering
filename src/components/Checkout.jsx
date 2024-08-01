@@ -1,56 +1,57 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useInput } from "../hooks/useInput";
-import { isEmail, isNotEmpty, hasReqLength } from "../util/validation";
+import { CartContext } from "../store/cart-context";
+import { isEmail, isNotEmpty } from "../util/validation";
 import Input from "./Input";
 
-export default function Checkout() {
+export default function Checkout({ onClose, onOrderSubmit }) {
+  const { items } = useContext(CartContext);
   const {
     hasError: nameHasError,
-    value: nameValue,
+    value: name,
     handleBlur: handleNameBlur,
     handleChange: handleNameChange,
   } = useInput("", (value) => isNotEmpty(value));
   const {
     hasError: emailHasError,
-    value: emailValue,
+    value: email,
     handleBlur: handleEmailBlur,
     handleChange: handleEmailChange,
   } = useInput("", (value) => isEmail(value) && isNotEmpty(value));
   const {
     hasError: streetHasError,
-    value: streetValue,
+    value: street,
     handleBlur: handleStreetBlur,
     handleChange: handleStreetChange,
   } = useInput("", (value) => isNotEmpty(value));
   const {
     hasError: codeHasError,
-    value: codeValue,
+    value: code,
     handleBlur: handleCodeBlur,
     handleChange: handleCodeChange,
   } = useInput("", (value) => isNotEmpty(value));
   const {
     hasError: cityHasError,
-    value: cityValue,
+    value: city,
     handleBlur: handleCityBlur,
     handleChange: handleCityChange,
   } = useInput("", (value) => isNotEmpty(value));
 
-  const [error, setError] = useState(false);
-  function handleChange(id) {
-    console.log(id);
-  }
-
-  function handleBlur(id) {
-    console.log(id);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const userData = { name, email, street, code, city };
+    console.log({ data: userData, order: items });
+    onOrderSubmit();
+    onClose();
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Input
         id="name"
         type="text"
         label="Full name"
-        value={nameValue}
+        value={name}
         blurHandler={handleNameBlur}
         changeHandler={handleNameChange}
         error={nameHasError && "Please enter valid name."}
@@ -59,7 +60,7 @@ export default function Checkout() {
         id="email"
         type="email"
         label="E-mail address"
-        value={emailValue}
+        value={email}
         blurHandler={handleEmailBlur}
         changeHandler={handleEmailChange}
         error={emailHasError && "Please enter valid email."}
@@ -68,7 +69,7 @@ export default function Checkout() {
         id="street"
         type="text"
         label="street"
-        value={streetValue}
+        value={street}
         blurHandler={handleStreetBlur}
         changeHandler={handleStreetChange}
         error={streetHasError && "Please enter valid street name."}
@@ -78,7 +79,7 @@ export default function Checkout() {
           id="postal-code"
           type="text"
           label="Postal code"
-          value={codeValue}
+          value={code}
           blurHandler={handleCodeBlur}
           changeHandler={handleCodeChange}
           error={codeHasError && "Please enter valid postal code"}
@@ -87,11 +88,19 @@ export default function Checkout() {
           id="city"
           type="text"
           label="City"
-          value={cityValue}
+          value={city}
           blurHandler={handleCityBlur}
           changeHandler={handleCityChange}
           error={cityHasError && "Please enter valid city name."}
         />
+      </div>
+      <div className="modal-actions">
+        <button type="button" className="text-button" onClick={onClose}>
+          Close
+        </button>
+        <button type="submit" className="button">
+          Place the order
+        </button>
       </div>
     </form>
   );

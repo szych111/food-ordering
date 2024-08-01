@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { CartContext } from "../store/cart-context";
 
-export default function Cart() {
+export default function Cart({ onAction, onClose }) {
   const { items, total, addItem, removeItem } = useContext(CartContext);
 
   return (
@@ -27,6 +27,14 @@ export default function Cart() {
           })}
       </ul>
       <div className="cart-total">{total}</div>
+      <div className="modal-actions">
+        <button className="text-button" onClick={onClose}>
+          Close
+        </button>
+        <button className="button" onClick={onAction}>
+          Go to checkout
+        </button>
+      </div>
     </div>
   );
 }

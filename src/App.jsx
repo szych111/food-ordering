@@ -11,6 +11,7 @@ import { useFetch } from "./hooks/useFetch";
 function App() {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [orderSumbitModalOpen, setOrderSubmitModalOpen] = useState(false);
   const {
     isFetching,
     error,
@@ -25,6 +26,11 @@ function App() {
     setCartModalOpen(false);
   }
 
+  function handleOpenOrderSubmitModal() {
+    setOrderSubmitModalOpen(true);
+    setTimeout(() => setOrderSubmitModalOpen(false), 2000);
+  }
+
   function handleOpenCheckoutModal() {
     setCartModalOpen(false);
     setCheckoutModalOpen(true);
@@ -34,28 +40,22 @@ function App() {
     setCheckoutModalOpen(false);
   }
 
-  function handleOrderSubmit(order) {
-    console.log(order);
-    setCheckoutModalOpen(false);
-  }
-
   return (
     <CartContextProvider meals={availableMeals}>
-      <Modal
-        open={cartModalOpen}
-        onClose={handleCloseCartModal}
-        onAction={handleOpenCheckoutModal}
-        actionText="Go to Checkout"
-      >
-        <Cart />
+      <Modal open={cartModalOpen}>
+        <Cart
+          onClose={handleCloseCartModal}
+          onAction={handleOpenCheckoutModal}
+        />
       </Modal>
-      <Modal
-        open={checkoutModalOpen}
-        onClose={handleCloseCheckoutModal}
-        onAction={handleOrderSubmit}
-        actionText="Submit Order"
-      >
-        <Checkout />
+      <Modal open={checkoutModalOpen}>
+        <Checkout
+          onClose={handleCloseCheckoutModal}
+          onOrderSubmit={handleOpenOrderSubmitModal}
+        />
+      </Modal>
+      <Modal open={orderSumbitModalOpen}>
+        <h3>Thank you for your order!</h3>
       </Modal>
       <Header onCartOpen={handleOpenCartModal} />
       <div id="meals">
